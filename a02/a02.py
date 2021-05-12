@@ -15,18 +15,30 @@ import Rhino.Geometry as rg
 #compute face normals using rg.Mesh.FaceNormals.ComputeFaceNormals()
 #output the vectors to a
 
-a = faceNormals
+m.FaceNormals.ComputeFaceNormals()
+
+a = m.FaceNormals
 
 #2.
 #get the centers of each faces using rg.Mesh.Faces.GetFaceCenter()
 #store the centers into a list called centers 
 #output that list to b
 
+centers = []
+for i in range(len(m.Faces)):
+    center = m.Faces.GetFaceCenter(i)
+    centers.append(center)
+
 b = centers
 
 #3.
 #calculate the angle between the sun and each FaceNormal using rg.Vector3d.VectorAngle()
 #store the angles in a list called angleList and output it to c
+
+angleList=[]
+for j in a:
+    angle = rg.Vector3d.VectorAngle(j, s)
+    angleList.append(angle)
 
 c = angleList
 
@@ -36,8 +48,17 @@ c = angleList
 #then iterate through each face of the copy, extract it using rg.Mesh.ExtractFaces
 #and store the result into a list called exploded in output d
 
+exploded=[]
+numesh=m.Duplicate()
+nufaces=numesh.Faces
+for k in range(len(nufaces)):
+     explo=nufaces.ExtractFaces([0])
+     exploded.append(explo)
+
 d = exploded
 
 #after here, your task is to apply a transformation to each face of the mesh
 #the transformation should correspond to the angle value that corresponds that face to it... 
 #the result should be a mesh that responds to the sun position... its up to you!
+
+print("Hello World")
